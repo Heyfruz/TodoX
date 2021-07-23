@@ -1,21 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
+import { observer } from 'mobx-react';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
 
-export default function App() {
+import { LoadAssets } from './app/components';
+import { AuthNavigator, OnboardingNavigator } from './app/navigation';
+import { assets as authenticationAssets } from './app/screen/Authentication';
+import { Provider, useStore } from './app/store/rootStore';
+
+const fonts = {
+  Saira: require('./app/assets/fonts/SairaCondensed-Regular.ttf'),
+  SairaMD: require('./app/assets/fonts/SairaCondensed-Medium.ttf'),
+  SairaSB: require('./app/assets/fonts/SairaCondensed-SemiBold.ttf'),
+  Sarpanch: require('./app/assets/fonts/Sarpanch-Bold.ttf'),
+  Titillium: require('./app/assets/fonts/Titillium-Regular.ttf'),
+  TitilliumBD: require('./app/assets/fonts/Titillium-Bold.ttf'),
+  TitilliumSB: require('./app/assets/fonts/Titillium-Semibold.ttf'),
+};
+
+const assets = [...authenticationAssets];
+
+const App = observer(function (): JSX.Element {
+  const { authStore } = useStore();
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider>
+      <LoadAssets {...{ assets, fonts }}>
+        {authStore.onboarding ? <AuthNavigator /> : <OnboardingNavigator />}
+      </LoadAssets>
+    </Provider>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
 });
+
+export default App;

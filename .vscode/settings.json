@@ -1,0 +1,14 @@
+{
+  "cSpell.words": [
+    "Parens",
+    "borderless",
+    "playfiar",
+    "redash",
+    "saira",
+    "subslide"
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  },
+  "eslint.validate": ["javascript"]
+}
