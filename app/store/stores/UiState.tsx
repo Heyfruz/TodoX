@@ -55,6 +55,7 @@ export default class UiState {
 
   @persist
   theme: 'dark' | 'light' = 'light';
+  @persist
   statusBar: 'dark' | 'light' = 'light';
 
   constructor(rootStore: RootStore) {
@@ -75,7 +76,7 @@ export default class UiState {
       backgroundColor: '#fff',
       inactive: '#E0E0E0',
       textColor: '#000',
-      inputBG: '#E0E0E0',
+      inputBG: '#F6F4F5',
     },
   };
 

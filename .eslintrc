@@ -56,7 +56,8 @@
     "react-native/no-color-literals": 0,
     "react-native/no-raw-text": 2,
     "react-native/no-single-element-style-arrays": 0,
-    "import/order": ["", { "newlines-between": "always" }],
+    "react/no-unescaped-entities": 0,
+    "import/order": [1, { "newlines-between": "always" }],
     "import/namespace": [0, { "allowComputed": false }]
   }
 }

@@ -36,7 +36,7 @@ const Welcome = observer(function ({
           <Button
             label="Sign Up"
             transform="uppercase"
-            onPress={() => console.log('pressed')}
+            onPress={() => navigation.navigate('Email')}
             variant="primary"
           />
           <Button
@@ -60,7 +60,9 @@ const Welcome = observer(function ({
           <Button
             label="Change Theme"
             transform="uppercase"
-            onPress={() => uiState.toggleTheme()}
+            onPress={() => {
+              uiState.toggleTheme();
+            }}
             variant="alt"
           />
         </View>

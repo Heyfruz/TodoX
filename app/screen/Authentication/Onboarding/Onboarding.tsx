@@ -1,7 +1,8 @@
 import { observer } from 'mobx-react';
-import React, { useRef } from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import Animated, {
+  useAnimatedRef,
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
@@ -44,9 +45,9 @@ export const assets = slides.map(slide => slide.image);
 
 const Onboarding = observer(function (): JSX.Element | null {
   const { authStore } = useStore();
-  //TODO: WHAT IS WRONG WITH THIS?!?
+  //*NOTE: There's an issue with the reanimated useRef properties for Animated.ScrollView. Reason I'm passing as any ih thr next line
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const scroll = useRef(null) as any;
+  const aref = useAnimatedRef<Animated.ScrollView>() as any;
   const translateX = useSharedValue(0);
 
   const scrollHandler = useAnimatedScrollHandler(event => {
@@ -63,7 +64,7 @@ const Onboarding = observer(function (): JSX.Element | null {
     <View style={styles.container}>
       <View style={styles.slider}>
         <Animated.ScrollView
-          ref={scroll}
+          ref={aref}
           horizontal
           snapToInterval={width}
           decelerationRate="fast"
@@ -96,7 +97,6 @@ const Onboarding = observer(function (): JSX.Element | null {
           ]}>
           {slides.map(({ title, description }, index) => {
             const last = index === slides.length - 1;
-
             return (
               <SlideFooter
                 key={index}
@@ -105,7 +105,7 @@ const Onboarding = observer(function (): JSX.Element | null {
                     authStore.setOnboardingCompleted();
                     console.log(authStore.onboarding);
                   } else {
-                    scroll.current?.scrollTo({
+                    aref.current?.scrollTo({
                       animated: true,
                       x: width * (index + 1),
                     });

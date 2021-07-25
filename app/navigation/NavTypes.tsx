@@ -12,6 +12,6 @@ export interface StackNavigationProps<
 export type AuthRoutes = {
   Welcome: undefined;
   Login: undefined;
-  Email: undefined;
-  SignUp: undefined;
+  Email: { email: 'email' } | undefined;
+  SignUp: { email: 'email' } | undefined;
 };

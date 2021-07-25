@@ -2,7 +2,7 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import { Onboarding } from '../screen/Authentication';
-import { jsxElement } from '../config/model/type';
+import { jsxElement } from '../config/type';
 
 const { Navigator, Screen } = createStackNavigator();
 

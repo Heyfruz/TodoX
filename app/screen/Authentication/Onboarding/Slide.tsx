@@ -1,5 +1,6 @@
 import React from 'react';
 import { Image, StyleSheet, View } from 'react-native';
+
 import { width } from '../../../config/Constants';
 
 interface SlideProps {
@@ -9,8 +10,7 @@ interface SlideProps {
 
 function Slide({ image, index }: SlideProps): JSX.Element | null {
   return (
-    <View
-      style={[styles.container, { backgroundColor: `#333333${index + 1}0` }]}>
+    <View style={[styles.container, { backgroundColor: `#333333${index}0` }]}>
       <View style={styles.underlay}>
         <Image source={image} style={styles.image} resizeMode="center" />
       </View>

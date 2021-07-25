@@ -1,8 +1,10 @@
+import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Button } from '../../../components';
 import Colors from '../../../config/Colors';
+import { useStore } from '../../../store/rootStore';
 
 interface SlideFooterProps {
   title: string;
@@ -11,16 +13,27 @@ interface SlideFooterProps {
   onPress: () => void;
 }
 
-function SlideFooter({
+const SlideFooter = observer(function ({
   description,
   title,
   last,
   onPress,
 }: SlideFooterProps): JSX.Element | null {
+  const { uiState } = useStore();
+  const color = uiState.getTheme();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      <Text
+        style={[
+          styles.description,
+          {
+            color: color.textColor,
+          },
+        ]}>
+        {description}
+      </Text>
       <Button
         label={last ? "Let's Begin" : 'Next'}
         variant={last ? 'primary' : 'default'}
@@ -28,7 +41,7 @@ function SlideFooter({
       />
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

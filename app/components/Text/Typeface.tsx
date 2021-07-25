@@ -1,7 +1,7 @@
 import React from 'react';
-
 import { observer } from 'mobx-react';
 import { Text, TextStyle } from 'react-native';
+
 import { useStore } from '../../store/rootStore';
 
 type textProps =
@@ -12,7 +12,8 @@ type textProps =
   | 'headerRegular'
   | 'headerMedium'
   | 'headerSB'
-  | 'placeholder';
+  | 'placeholder'
+  | 'error';
 
 interface TypefaceProps {
   children: React.ReactNode;
@@ -23,7 +24,7 @@ interface TypefaceProps {
 const Typeface = observer(function ({
   children,
   style,
-  variant = 'regular',
+  variant,
   ...props
 }: TypefaceProps): JSX.Element | null {
   const { uiState } = useStore();
@@ -34,69 +35,73 @@ const Typeface = observer(function ({
   switch (variant) {
     case 'regular':
       textStyle = {
+        color: uiColor.textColor,
         fontFamily: 'Titillium',
         fontSize: 16,
-        color: uiColor.textColor,
-        lineHeight: 16,
       };
       break;
     case 'semibold':
       textStyle = {
+        color: uiColor.textColor,
         fontFamily: 'TitilliumSB',
         fontSize: 16,
-        color: uiColor.textColor,
       };
       break;
     case 'bold':
       textStyle = {
+        color: uiColor.textColor,
         fontFamily: 'TitilliumBD',
         fontSize: 20,
-        color: uiColor.textColor,
       };
       break;
     case 'logo':
       textStyle = {
+        color: uiColor.textColor,
         fontFamily: 'Sarpanch',
         fontSize: 36,
-        color: uiColor.textColor,
       };
       break;
     case 'headerRegular':
       textStyle = {
+        color: uiColor.textColor,
         fontFamily: 'Saira',
         fontSize: 16,
-        color: uiColor.textColor,
       };
       break;
     case 'headerMedium':
       textStyle = {
+        color: uiColor.textColor,
         fontFamily: 'SairaMD',
         fontSize: 16,
-        color: uiColor.textColor,
       };
       break;
     case 'headerSB':
       textStyle = {
+        color: uiColor.primary,
         fontFamily: 'SairaSB',
         fontSize: 24,
-        color: uiColor.primary,
         lineHeight: 48,
         textTransform: 'uppercase',
       };
       break;
     case 'placeholder':
       textStyle = {
+        color: uiColor.primary,
         fontFamily: 'TitilliumSB',
         fontSize: 16,
-        color: uiColor.primary,
+      };
+      break;
+    case 'error':
+      textStyle = {
+        color: uiColor.red,
+        fontFamily: 'Titillium',
+        fontSize: 14,
       };
       break;
     default:
       textStyle = {
         fontFamily: 'Titillium',
         fontSize: 16,
-        color: uiColor.textColor,
-        lineHeight: 16,
       };
   }
 

@@ -1,10 +1,12 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { StyleSheet, View, TextInput } from 'react-native';
+import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
+
 import { useStore } from '../store/rootStore';
+
 import Text from './Text';
 
-interface InputProps {
+interface InputProps extends TextInputProps {
   placeholder: string;
   value?: string;
   onChangeText?: (text: string) => void;
@@ -15,7 +17,7 @@ const Input = observer(function ({
   placeholder,
   value,
   onChangeText,
-  error,
+  error = false,
   ...props
 }: InputProps): JSX.Element | null {
   const { uiState } = useStore();
@@ -29,8 +31,8 @@ const Input = observer(function ({
       <TextInput
         style={[
           styles.input,
-          { backgroundColor: color.inputBG },
-          error && { borderWidth: 1, borderColor: color.red },
+          { backgroundColor: color.inputBG, color: color.textColor },
+          error && { borderColor: color.red, borderWidth: 1 },
         ]}
         onChangeText={onChangeText}
         value={value}
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Titillium',
     fontSize: 18,
     height: 50,
-    marginTop: 10,
+    marginTop: 20,
     paddingLeft: 20,
   },
   placeholder: {

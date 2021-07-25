@@ -1,16 +1,17 @@
+import { observer } from 'mobx-react';
 import React from 'react';
 import { StyleSheet, Text, TouchableNativeFeedback, View } from 'react-native';
 
 import Colors from '../config/Colors';
 
-interface ButtonProps {
+export interface ButtonProps {
   variant: 'default' | 'primary' | 'alt' | 'borderless';
   label: string;
-  onPress: () => void;
+  onPress?: () => void;
   transform?: 'uppercase';
 }
 
-function Button({
+const Button = observer(function ({
   label,
   onPress,
   variant,
@@ -55,7 +56,7 @@ function Button({
       </TouchableNativeFeedback>
     </View>
   );
-}
+});
 
 const styles = StyleSheet.create({
   container: {

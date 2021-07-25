@@ -1,9 +1,3 @@
-// function themeColor() {
-//     if (theme === 'light') {
-//         return '#ffffff';
-//     }
-// }
-
 export default {
   backgroundColor: '#1C1D22',
   black: '#000000',
