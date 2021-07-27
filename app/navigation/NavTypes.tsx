@@ -15,3 +15,9 @@ export type AuthRoutes = {
   Email: { email: 'email' } | undefined;
   SignUp: { email: 'email' } | undefined;
 };
+
+export type AppRoutes = {
+  Home: undefined;
+  Profile: undefined;
+  Settings: undefined;
+};

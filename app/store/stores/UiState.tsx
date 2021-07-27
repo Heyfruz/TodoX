@@ -57,6 +57,8 @@ export default class UiState {
   theme: 'dark' | 'light' = 'light';
   @persist
   statusBar: 'dark' | 'light' = 'light';
+  @persist
+  enabled = false;
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
@@ -68,15 +70,15 @@ export default class UiState {
       ...constantColors,
       backgroundColor: '#1C1D22',
       inactive: '#3B3C40',
-      textColor: '#fff',
       inputBG: '#25262C',
+      textColor: '#fff',
     },
     light: {
       ...constantColors,
-      backgroundColor: '#fff',
+      backgroundColor: '#E9E9ED', //F4F4F6
       inactive: '#E0E0E0',
+      inputBG: '#D6D6D6', // DDDDE3
       textColor: '#000',
-      inputBG: '#F6F4F5',
     },
   };
 
@@ -93,5 +95,10 @@ export default class UiState {
   getTheme(): themeColors {
     if (this.theme === 'light') return this.colors.light;
     return this.colors.dark;
+  }
+
+  setEnabled(): void {
+    this.enabled = !this.enabled;
+    this.toggleTheme();
   }
 }

@@ -13,6 +13,7 @@ export default class AuthStore {
   checkBox = false;
   @persist
   token = false;
+  status: 'idle' | 'signOut' | 'signIn' = 'idle';
 
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);

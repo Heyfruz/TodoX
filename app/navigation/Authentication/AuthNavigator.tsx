@@ -7,12 +7,10 @@ import {
 } from '@react-navigation/stack';
 import { Easing } from 'react-native-reanimated';
 
-import { jsxElement } from '../config/type';
-import { Login, SignUp, Welcome } from '../screen/Authentication';
-import Colors from '../config/Colors';
-import Email from '../screen/Authentication/Email';
-
-import { AuthRoutes } from './';
+import { jsxElement } from '../../config/type';
+import { Email, Login, SignUp, Welcome } from '../../screen';
+import Colors from '../../config/Colors';
+import { AuthRoutes } from '..';
 
 const { Navigator, Screen } = createStackNavigator<AuthRoutes>();
 

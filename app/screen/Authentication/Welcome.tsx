@@ -57,14 +57,6 @@ const Welcome = observer(function ({
             onPress={() => navigation.navigate('Login')}
             variant="borderless"
           />
-          <Button
-            label="Change Theme"
-            transform="uppercase"
-            onPress={() => {
-              uiState.toggleTheme();
-            }}
-            variant="alt"
-          />
         </View>
       </View>
     </Screen>

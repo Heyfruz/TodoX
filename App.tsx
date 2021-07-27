@@ -2,7 +2,11 @@ import { observer } from 'mobx-react';
 import React from 'react';
 
 import { LoadAssets } from './app/components';
-import { AuthNavigator, OnboardingNavigator } from './app/navigation';
+import {
+  AppNavigator,
+  AuthNavigator,
+  OnboardingNavigator,
+} from './app/navigation';
 import { assets as authenticationAssets } from './app/screen/Authentication';
 import { Provider, useStore } from './app/store/rootStore';
 
@@ -24,7 +28,13 @@ const App = observer(function (): JSX.Element {
   return (
     <Provider>
       <LoadAssets {...{ assets, fonts }}>
-        {authStore.onboarding ? <AuthNavigator /> : <OnboardingNavigator />}
+        {authStore.token ? (
+          <AppNavigator />
+        ) : authStore.onboarding ? (
+          <AuthNavigator />
+        ) : (
+          <OnboardingNavigator />
+        )}
       </LoadAssets>
     </Provider>
   );

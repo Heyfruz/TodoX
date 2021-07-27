@@ -6,6 +6,7 @@ import * as Yup from 'yup';
 import { height } from '../../config/Constants';
 import { Field, Form, Screen, Submit, Text } from '../../components';
 import { AuthRoutes, StackNavigationProps } from '../../navigation';
+import { useStore } from '../../store/rootStore';
 
 const passwordRegExr = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{5,}$/;
 const validation = Yup.object().shape({
@@ -22,6 +23,7 @@ const SignUp = observer(function ({
 }: StackNavigationProps<AuthRoutes, 'SignUp'>): JSX.Element | null {
   const email = route.params;
   console.log(email);
+  const { authStore } = useStore();
 
   return (
     <Screen>
@@ -39,6 +41,7 @@ const SignUp = observer(function ({
             }}
             onSubmit={value => {
               console.log(value);
+              authStore.login();
             }}
             validationSchema={validation}>
             <Field

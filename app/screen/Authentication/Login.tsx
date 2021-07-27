@@ -37,6 +37,7 @@ const Login = observer(function (): JSX.Element | null {
             onSubmit={value => {
               console.log(value);
               authStore.setEmail(value.email);
+              authStore.login();
             }}
             validationSchema={validation}>
             <Field

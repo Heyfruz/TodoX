@@ -13,7 +13,8 @@ type textProps =
   | 'headerMedium'
   | 'headerSB'
   | 'placeholder'
-  | 'error';
+  | 'error'
+  | 'custom';
 
 interface TypefaceProps {
   children: React.ReactNode;
@@ -49,9 +50,9 @@ const Typeface = observer(function ({
       break;
     case 'bold':
       textStyle = {
-        color: uiColor.textColor,
+        color: uiColor.grey,
         fontFamily: 'TitilliumBD',
-        fontSize: 20,
+        fontSize: 16,
       };
       break;
     case 'logo':
@@ -72,15 +73,15 @@ const Typeface = observer(function ({
       textStyle = {
         color: uiColor.textColor,
         fontFamily: 'SairaMD',
-        fontSize: 16,
+        fontSize: 18,
+        textTransform: 'uppercase',
       };
       break;
     case 'headerSB':
       textStyle = {
         color: uiColor.primary,
         fontFamily: 'SairaSB',
-        fontSize: 24,
-        lineHeight: 48,
+        fontSize: 26,
         textTransform: 'uppercase',
       };
       break;
@@ -96,6 +97,11 @@ const Typeface = observer(function ({
         color: uiColor.red,
         fontFamily: 'Titillium',
         fontSize: 14,
+      };
+      break;
+    case 'custom':
+      textStyle = {
+        fontFamily: 'Titillium',
       };
       break;
     default:

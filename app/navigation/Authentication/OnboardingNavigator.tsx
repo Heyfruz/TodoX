@@ -1,8 +1,8 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import { Onboarding } from '../screen/Authentication';
-import { jsxElement } from '../config/type';
+import { Onboarding } from '../../screen';
+import { jsxElement } from '../../config/type';
 
 const { Navigator, Screen } = createStackNavigator();
 
