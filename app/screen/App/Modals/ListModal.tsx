@@ -14,18 +14,8 @@ import { useStore } from '../../../store/rootStore';
 import { picker } from '../../../config/Colors';
 import { usePicker } from '../../../hooks';
 
-interface AddListProps {
-  visible: boolean;
-  onPress: () => void;
-  onBackgroundPress: () => void;
-}
-
-const AddList = observer(function ({
-  visible,
-  onPress,
-  onBackgroundPress,
-}: AddListProps): JSX.Element | null {
-  const { uiState } = useStore();
+const ListModal = observer(function (): JSX.Element {
+  const { uiState, appStore } = useStore();
   const color = uiState.getTheme();
 
   const {
@@ -39,22 +29,30 @@ const AddList = observer(function ({
     setValue,
   } = usePicker();
 
+  const toggle = (): void => {
+    uiState.toggleVisible();
+    setValue('');
+    setSelectedColor('Grey');
+    setColorCode('#61656C');
+    setSelected(undefined);
+  };
+
+  const handleSubmit = (): void => {
+    if (value === '') return;
+    appStore.createList(value, colorCode);
+    toggle();
+  };
+
   return (
     <Modal
-      visible={visible}
+      visible={uiState.visible}
       statusBarTranslucent
       transparent
       animationType="fade">
       <TouchableWithoutFeedback
-        onPress={onBackgroundPress}
-        // onPress={() => {
-        //   setVisible(false);
-        //   setValue('');
-        //   setSelectedColor('Grey');
-        //   setColorCode('#61656C');
-        //   setSelected(undefined);
-        // }}
-      >
+        onPress={() => {
+          toggle();
+        }}>
         <View
           style={{
             ...StyleSheet.absoluteFillObject,
@@ -81,6 +79,10 @@ const AddList = observer(function ({
               code={colorCode}
               value={value}
               onChangeText={text => setValue(text)}
+              onSubmitEditing={() => {
+                handleSubmit();
+              }}
+              returnKeyType="done"
             />
             <View style={{ alignSelf: 'center', padding: 5 }}>
               <Text variant="picker" style={{ color: colorCode }}>
@@ -115,17 +117,9 @@ const AddList = observer(function ({
               }}>
               <View style={{ borderRadius: 5, overflow: 'hidden' }}>
                 <TouchableNativeFeedback
-                  onPress={onPress}
-                  // onPress={() => {
-                  //   if (value === '') return;
-                  //   appStore.createList(value, colorCode);
-                  //   setVisible(false);
-                  //   setValue('');
-                  //   setSelectedColor('Grey');
-                  //   setColorCode('#61656C');
-                  //   setSelected(undefined);
-                  // }}
-                >
+                  onPress={() => {
+                    handleSubmit();
+                  }}>
                   <View
                     style={{
                       backgroundColor: colorCode,
@@ -158,4 +152,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AddList;
+export default ListModal;

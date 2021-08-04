@@ -7,16 +7,14 @@ import { MenuCard, Text } from '../../components';
 import { useStore } from '../../store/rootStore';
 
 const Setting = observer(function (): JSX.Element | null {
-  const { uiState, authStore } = useStore();
+  const { uiState, authStore, clearData } = useStore();
   //NOTE: Changing of the them can be advanced by adding the option to use the system default theme. This can be done using the appearance api from react native. The switch component will be replace by a modal picker.
   const color = uiState.getTheme();
 
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text
-          variant="bold"
-          style={[styles.text, { textTransform: 'uppercase' }]}>
+        <Text variant="bold" style={styles.text}>
           General
         </Text>
         <View style={styles.cardContainer}>
@@ -34,10 +32,15 @@ const Setting = observer(function (): JSX.Element | null {
               />
             }
           />
+          <MenuCard title="Security & Login" />
+          <MenuCard
+            title="Cache"
+            onPress={() => {
+              clearData();
+            }}
+          />
         </View>
-        <Text
-          variant="bold"
-          style={[styles.text, { textTransform: 'uppercase' }]}>
+        <Text variant="bold" style={styles.text}>
           Notifications
         </Text>
         <View style={styles.cardContainer}>
@@ -54,9 +57,7 @@ const Setting = observer(function (): JSX.Element | null {
             }
           />
         </View>
-        <Text
-          variant="bold"
-          style={[styles.text, { textTransform: 'uppercase' }]}>
+        <Text variant="bold" style={styles.text}>
           Help & Feedback
         </Text>
         <View style={styles.cardContainer}>
@@ -64,9 +65,7 @@ const Setting = observer(function (): JSX.Element | null {
           <MenuCard title="Get support" />
           <MenuCard title="Sync" />
         </View>
-        <Text
-          variant="bold"
-          style={[styles.text, { textTransform: 'uppercase' }]}>
+        <Text variant="bold" style={styles.text}>
           About
         </Text>
         <View style={styles.cardContainer}>
@@ -99,6 +98,7 @@ const styles = StyleSheet.create({
   },
   text: {
     paddingLeft: 20,
+    textTransform: 'uppercase',
   },
 });
 

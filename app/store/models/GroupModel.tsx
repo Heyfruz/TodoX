@@ -11,8 +11,9 @@ export default class Group {
   color: ColorValue;
   icon: ComponentProps<typeof Icon>['name'] = 'folder';
   id = UUID();
-  list: List[] = []; // [] push new list()
+  list: List[] = [];
   title = '';
+  type: 'list' | 'group' = 'group';
 
   constructor(title: string, color: ColorValue) {
     makeAutoObservable(this);
@@ -20,7 +21,7 @@ export default class Group {
     this.color = color;
   }
 
-  createList(title: string, color: ColorValue): void {
+  addList(title: string, color: ColorValue): void {
     this.list.push(new List(title, color));
   }
 }

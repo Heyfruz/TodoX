@@ -5,20 +5,16 @@ import { Feather as Icon } from '@expo/vector-icons';
 import { ComponentProps } from 'react';
 import { ColorValue } from 'react-native';
 
-import Task from './TaskModel';
-
-interface ListModel {
-  id: string;
-  value: string;
-}
+import { Task } from './';
 
 export default class List {
   id = UUID();
   icon: ComponentProps<typeof Icon>['name'] = 'list';
   title = '';
-  task: ListModel[] = [];
+  task: Task[] = [];
   complete = false;
   color;
+  type: 'list' | 'group' = 'list';
 
   constructor(title: string, color: ColorValue) {
     makeAutoObservable(this);
@@ -33,7 +29,7 @@ export default class List {
     this.complete = false;
   }
 
-  addTask(value: string): void {
+  add(value: string): void {
     this.task.push(new Task(value));
   }
 }

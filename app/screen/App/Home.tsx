@@ -1,8 +1,6 @@
 import React from 'react';
 import { observer } from 'mobx-react';
 import {
-  KeyboardAvoidingView,
-  Modal,
   ScrollView,
   StyleSheet,
   TouchableNativeFeedback,
@@ -11,33 +9,22 @@ import {
 } from 'react-native';
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { AppInput, Card, Item, Screen, Text } from '../../components';
+import { Card, Screen, Text } from '../../components';
 import { date, day, height, month } from '../../config/Constants';
 import { useStore } from '../../store/rootStore';
 import { AppRoutes, StackNavigationProps } from '../../navigation';
-import { picker } from '../../config/Colors';
-import { usePicker } from '../../hooks';
+
+import { GroupModal, ListModal, LongPress } from './Modals';
 
 const Home = observer(function ({
   navigation,
 }: StackNavigationProps<AppRoutes, 'Home'>): JSX.Element | null {
   const { uiState, appStore } = useStore();
   const appData = appStore.appDefault;
-  const userData = appStore.list;
+  const userData = appStore.user;
   const color = uiState.getTheme();
 
-  const {
-    selected,
-    selectedColor,
-    visible,
-    setSelected,
-    setSelectedColor,
-    setVisible,
-    setColorCode,
-    colorCode,
-    value,
-    setValue,
-  } = usePicker();
+  console.log(userData);
 
   return (
     <Screen>
@@ -82,7 +69,11 @@ const Home = observer(function ({
                   title={item.title}
                   icon={item.icon}
                   color={item.color}
+                  onLongPress={() => {
+                    uiState.toggleLongPress();
+                  }}
                   onPress={() => {
+                    if (item.type === 'group') return;
                     navigation.navigate('Task', { item });
                   }}
                 />
@@ -94,7 +85,7 @@ const Home = observer(function ({
       <View style={styles.footer}>
         <TouchableNativeFeedback
           onPress={() => {
-            setVisible(true);
+            uiState.toggleVisible();
           }}>
           <View
             style={[
@@ -116,7 +107,7 @@ const Home = observer(function ({
         </TouchableNativeFeedback>
         <TouchableNativeFeedback
           onPress={() => {
-            console.log('Pressed');
+            uiState.toggleGroup();
           }}>
           <View
             style={[
@@ -130,109 +121,9 @@ const Home = observer(function ({
           </View>
         </TouchableNativeFeedback>
       </View>
-      <Modal
-        visible={visible}
-        statusBarTranslucent
-        transparent
-        animationType="fade">
-        <TouchableWithoutFeedback
-          onPress={() => {
-            setVisible(false);
-            setValue('');
-            setSelectedColor('Grey');
-            setColorCode('#61656C');
-            setSelected(undefined);
-          }}>
-          <View
-            style={{
-              ...StyleSheet.absoluteFillObject,
-              backgroundColor: color.black,
-              opacity: 0.5,
-            }}
-          />
-        </TouchableWithoutFeedback>
-        <View
-          style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}>
-          <KeyboardAvoidingView behavior="padding" style={{ width: '85%' }}>
-            <View
-              style={{
-                alignSelf: 'center',
-                backgroundColor: color.backgroundColor,
-                borderRadius: 10,
-                padding: 20,
-                width: '100%',
-              }}>
-              <View>
-                <Text variant="semibold">New List</Text>
-              </View>
-              <AppInput
-                placeholder="Create list"
-                code={colorCode}
-                value={value}
-                onChangeText={text => setValue(text)}
-              />
-              <View style={{ alignSelf: 'center', padding: 5 }}>
-                <Text variant="picker" style={{ color: colorCode }}>
-                  {selectedColor}
-                </Text>
-              </View>
-              <View style={styles.item}>
-                {picker.map(({ code, name }, index) => {
-                  return (
-                    <View
-                      key={index}
-                      style={{
-                        padding: 5,
-                      }}>
-                      <Item
-                        index={selected}
-                        id={index}
-                        code={code}
-                        onPress={() => {
-                          setSelected(index);
-                          setSelectedColor(name);
-                          setColorCode(code);
-                        }}
-                      />
-                    </View>
-                  );
-                })}
-              </View>
-              <View
-                style={{
-                  flexDirection: 'row-reverse',
-                }}>
-                <View style={{ borderRadius: 5, overflow: 'hidden' }}>
-                  <TouchableNativeFeedback
-                    onPress={() => {
-                      if (value === '') return;
-                      appStore.createList(value, colorCode);
-                      setVisible(false);
-                      setValue('');
-                      setSelectedColor('Grey');
-                      setColorCode('#61656C');
-                      setSelected(undefined);
-                    }}>
-                    <View
-                      style={{
-                        backgroundColor: colorCode,
-                      }}>
-                      <Text
-                        style={{
-                          color: color.backgroundColor,
-                          padding: 5,
-                          paddingHorizontal: 10,
-                        }}>
-                        Create List
-                      </Text>
-                    </View>
-                  </TouchableNativeFeedback>
-                </View>
-              </View>
-            </View>
-          </KeyboardAvoidingView>
-        </View>
-      </Modal>
+      <ListModal />
+      <LongPress />
+      <GroupModal />
     </Screen>
   );
 });
@@ -262,12 +153,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-  },
-  item: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
-    padding: 10,
   },
   profile: {
     alignItems: 'center',

@@ -82,7 +82,6 @@ const AuthNavigator = function (): jsxElement {
         name="Task"
         component={Task}
         options={() => ({
-          headerShown: false,
           headerTitle: () => <Text variant="headerSB">Settings</Text>,
         })}
       />

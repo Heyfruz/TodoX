@@ -27,6 +27,7 @@ interface themeColors {
   white: ColorValue;
   yellow: ColorValue;
   textColor: ColorValue;
+  altBG: ColorValue;
 }
 
 const constantColors = {
@@ -60,6 +61,10 @@ export default class UIState {
   @persist
   enabled = false;
 
+  visible = false;
+  groupVisible = false;
+  longPress = false;
+
   constructor(rootStore: RootStore) {
     makeAutoObservable(this);
     this.rootStore = rootStore;
@@ -68,6 +73,7 @@ export default class UIState {
   colors = {
     dark: {
       ...constantColors,
+      altBG: '#17181c', //#15161A #17181c #050506
       backgroundColor: '#1C1D22',
       inactive: '#3B3C40',
       inputBG: '#25262C',
@@ -75,6 +81,7 @@ export default class UIState {
     },
     light: {
       ...constantColors,
+      altBG: '#f9f9fa', //#f9f9fa
       backgroundColor: '#E9E9ED', //F4F4F6
       inactive: '#E0E0E0',
       inputBG: '#D6D6D6', // DDDDE3
@@ -100,5 +107,17 @@ export default class UIState {
   setEnabled(): void {
     this.enabled = !this.enabled;
     this.toggleTheme();
+  }
+
+  toggleVisible(): void {
+    this.visible = !this.visible;
+  }
+
+  toggleGroup(): void {
+    this.groupVisible = !this.groupVisible;
+  }
+
+  toggleLongPress(): void {
+    this.longPress = !this.longPress;
   }
 }

@@ -4,8 +4,7 @@ import { ColorValue } from 'react-native';
 import { Feather as Icon } from '@expo/vector-icons';
 import { persist } from 'mobx-persist';
 
-import { Group, List } from '../models/index';
-// import { RootStore } from '../rootStore';
+import { Group, List, ModelProps } from '../models/index';
 
 type DataProps = {
   icon: ComponentProps<typeof Icon>['name'];
@@ -57,19 +56,16 @@ export default class AppStore {
   @persist('list')
   appDefault: DataProps[] = [...main];
   @persist('list')
-  userData: Group[] = [];
-  @persist('list')
-  list: List[] = [];
+  user: ModelProps[] = [];
 
   constructor() {
     makeAutoObservable(this);
   }
 
-  createGroup(title: string, color: ColorValue): void {
-    this.userData.push(new Group(title, color));
-  }
-
   createList(title: string, color: ColorValue): void {
-    this.list.push(new List(title, color));
+    this.user.push(new List(title, color));
+  }
+  createGroup(title: string, color: ColorValue): void {
+    this.user.push(new Group(title, color));
   }
 }
