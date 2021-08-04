@@ -42,7 +42,7 @@ const constantColors = {
   mac: '#EDB88B',
   orange: '#FE6B57',
   pink: '#E24F86',
-  primary: '#E04841', //being used as a primary color
+  primary: '#E04841', //being used as a primary color //#E9D758
   purple: '#8044FE',
   red: '#CC2936',
   seaWeed: '#388697',
@@ -50,11 +50,11 @@ const constantColors = {
   yellow: '#FE9000',
 };
 
-export default class UiState {
+export default class UIState {
   rootStore: RootStore;
 
   @persist
-  theme: 'dark' | 'light' = 'light';
+  theme: 'dark' | 'light' = 'dark';
   @persist
   statusBar: 'dark' | 'light' = 'light';
   @persist

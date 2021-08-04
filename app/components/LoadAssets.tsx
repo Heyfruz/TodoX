@@ -11,7 +11,7 @@ import { StatusBar } from 'expo-status-bar';
 import Constants from 'expo-constants';
 import { observer } from 'mobx-react';
 
-import { useStore } from '../store/rootStore';
+import { Provider, useStore } from '../store/rootStore';
 
 const NAVIGATION_STATE_KEY = `NAVIGATION_STATE_KEY-${Constants.manifest?.sdkVersion}`;
 
@@ -82,25 +82,29 @@ const LoadAssets = observer(function ({
     return null;
   }
 
-  const navigationTheme = {
+  const lightTheme = {
     ...DefaultTheme,
     colors: {
       ...DefaultTheme.colors,
-      primary: color.primary as string,
       background: color.backgroundColor as string,
+      border: 'red',
       card: color.backgroundColor as string,
+      notification: color.red as string,
+      primary: color.primary as string,
       text: color.textColor as string,
     },
     dark: theme === 'dark' ? true : false,
   };
 
   return (
-    <NavigationContainer
-      theme={navigationTheme}
-      {...{ initialState, onStateChange }}>
-      <StatusBar style={statusBarColor} />
-      {children}
-    </NavigationContainer>
+    <Provider>
+      <NavigationContainer
+        theme={lightTheme}
+        {...{ initialState, onStateChange }}>
+        <StatusBar style={statusBarColor} />
+        {children}
+      </NavigationContainer>
+    </Provider>
   );
 });
 

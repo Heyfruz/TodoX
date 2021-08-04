@@ -8,51 +8,38 @@ import {
 } from 'react-native';
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { useStore } from '../store/rootStore';
-
 import Text from './Text';
 
 interface MenuCardProps {
   title: string;
   icon?: ComponentProps<typeof Icon>['name'];
   onPress?: () => void;
-  component?: React.ReactNode;
-  description?: string;
-  color?: ColorValue;
+  color: ColorValue;
+  onLongPress?: () => void;
 }
 
 const MenuCard = observer(function ({
   title,
   icon,
   onPress,
-  component,
-  description,
+  onLongPress,
+  color = 'blue',
 }: MenuCardProps): JSX.Element | null {
-  const { uiState } = useStore();
-  const color = uiState.getTheme();
-
   return (
-    <TouchableNativeFeedback {...{ onPress }}>
+    <TouchableNativeFeedback
+      delayPressIn={300}
+      delayPressOut={0}
+      onLongPress={onLongPress}
+      {...{ onPress }}>
       <View style={styles.container}>
         <View style={{ flexDirection: 'row' }}>
           {icon && (
-            <Icon
-              name={icon}
-              size={22}
-              style={styles.icon}
-              color={color.textColor}
-            />
+            <Icon name={icon} size={22} style={styles.icon} color={color} />
           )}
-          <Text variant="regular">{title}</Text>
-        </View>
-        {component && <View>{component}</View>}
-        {description && (
-          <Text
-            variant="custom"
-            style={{ color: color.grey, fontSize: 14, marginRight: 10 }}>
-            {description}
+          <Text variant="custom" style={[styles.text, { color }]}>
+            {title}
           </Text>
-        )}
+        </View>
       </View>
     </TouchableNativeFeedback>
   );
@@ -65,11 +52,14 @@ const styles = StyleSheet.create({
     height: 50,
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-    paddingLeft: 30,
+    paddingLeft: 20,
     width: '100%',
   },
   icon: {
     marginRight: 20,
+  },
+  text: {
+    fontSize: 18,
   },
 });
 

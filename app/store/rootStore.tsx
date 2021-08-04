@@ -1,8 +1,9 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { create } from 'mobx-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { AuthStore, DummyStore, UiState, UserStore } from './stores';
+import { AuthStore, DummyStore, UIState, UserStore } from './stores';
+import AppStore from './stores/Store';
 
 interface ProviderProps {
   children: JSX.Element[] | JSX.Element;
@@ -15,13 +16,15 @@ const hydrate = create({
 export class RootStore {
   authStore = new AuthStore(this);
   dummyStore = new DummyStore(this);
-  uiState = new UiState(this);
+  uiState = new UIState(this);
   userStore = new UserStore(this);
+  appStore = new AppStore();
 
   constructor() {
     hydrate('Auth', this.authStore);
     hydrate('Ui', this.uiState);
     hydrate('User', this.userStore);
+    hydrate('app', this.appStore);
   }
 
   async getData(): Promise<void> {
@@ -49,9 +52,14 @@ const RootStoreContext = createContext(store);
 const ThemeContext = createContext(store.uiState);
 
 export const useStore = (): RootStore => useContext(RootStoreContext);
-export const useTheme = (): UiState => useContext(ThemeContext);
+export const useTheme = (): UIState => useContext(ThemeContext);
 
 export const Provider = ({ children }: ProviderProps): JSX.Element => {
+  useEffect(() => {
+    // store.appStore.createList('Threat', 'hotpink');
+    // store.clearData();
+  }, []);
+
   return (
     <RootStoreContext.Provider value={store}>
       {children}

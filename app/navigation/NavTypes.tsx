@@ -1,6 +1,8 @@
 import { ParamListBase, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
+import { List } from '../store/models';
+
 export interface StackNavigationProps<
   ParamList extends ParamListBase,
   RouteName extends keyof ParamList = string,
@@ -20,4 +22,5 @@ export type AppRoutes = {
   Home: undefined;
   Profile: undefined;
   Settings: undefined;
+  Task: { item?: List };
 };

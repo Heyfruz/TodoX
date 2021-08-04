@@ -14,11 +14,12 @@ type textProps =
   | 'headerSB'
   | 'placeholder'
   | 'error'
-  | 'custom';
+  | 'custom'
+  | 'picker';
 
 interface TypefaceProps {
   children: React.ReactNode;
-  style?: TextStyle;
+  style?: TextStyle | TextStyle[];
   variant?: textProps;
 }
 
@@ -102,6 +103,12 @@ const Typeface = observer(function ({
     case 'custom':
       textStyle = {
         fontFamily: 'Titillium',
+      };
+      break;
+    case 'picker':
+      textStyle = {
+        fontFamily: 'TitilliumSB',
+        fontSize: 16,
       };
       break;
     default:

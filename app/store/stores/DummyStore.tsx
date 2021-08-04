@@ -11,15 +11,7 @@ export default class DummyStore {
     this.rootStore = rootStore;
   }
 
-  getCount(): number {
-    return this.rootStore.authStore.count;
-  }
-
   getEmail(): string {
     return this.rootStore.authStore.email;
-  }
-
-  storeCount(): void {
-    this.counts.push(this.getCount());
   }
 }

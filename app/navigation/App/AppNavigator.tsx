@@ -13,6 +13,7 @@ import { AppRoutes } from '..';
 import Setting from '../../screen/App/Setting';
 import Colors from '../../config/Colors';
 import { Text } from '../../components';
+import Task from '../../screen/App/Task';
 
 const { Navigator, Screen } = createStackNavigator<AppRoutes>();
 
@@ -21,6 +22,7 @@ const AuthNavigator = function (): jsxElement {
     <Navigator
       screenOptions={({ navigation }) => ({
         ...TransitionPresets.SlideFromRightIOS,
+        //cardOverlay can replace the background color option in the app.json file.
         cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         gestureDirection: 'horizontal',
         gestureEnabled: true,
@@ -73,6 +75,14 @@ const AuthNavigator = function (): jsxElement {
         name="Settings"
         component={Setting}
         options={() => ({
+          headerTitle: () => <Text variant="headerSB">Settings</Text>,
+        })}
+      />
+      <Screen
+        name="Task"
+        component={Task}
+        options={() => ({
+          headerShown: false,
           headerTitle: () => <Text variant="headerSB">Settings</Text>,
         })}
       />

@@ -14,7 +14,9 @@ const Setting = observer(function (): JSX.Element | null {
   return (
     <ScrollView>
       <View style={styles.container}>
-        <Text variant="bold" style={{ textTransform: 'uppercase' }}>
+        <Text
+          variant="bold"
+          style={[styles.text, { textTransform: 'uppercase' }]}>
           General
         </Text>
         <View style={styles.cardContainer}>
@@ -33,7 +35,9 @@ const Setting = observer(function (): JSX.Element | null {
             }
           />
         </View>
-        <Text variant="bold" style={{ textTransform: 'uppercase' }}>
+        <Text
+          variant="bold"
+          style={[styles.text, { textTransform: 'uppercase' }]}>
           Notifications
         </Text>
         <View style={styles.cardContainer}>
@@ -50,7 +54,9 @@ const Setting = observer(function (): JSX.Element | null {
             }
           />
         </View>
-        <Text variant="bold" style={{ textTransform: 'uppercase' }}>
+        <Text
+          variant="bold"
+          style={[styles.text, { textTransform: 'uppercase' }]}>
           Help & Feedback
         </Text>
         <View style={styles.cardContainer}>
@@ -58,7 +64,9 @@ const Setting = observer(function (): JSX.Element | null {
           <MenuCard title="Get support" />
           <MenuCard title="Sync" />
         </View>
-        <Text variant="bold" style={{ textTransform: 'uppercase' }}>
+        <Text
+          variant="bold"
+          style={[styles.text, { textTransform: 'uppercase' }]}>
           About
         </Text>
         <View style={styles.cardContainer}>
@@ -87,7 +95,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
+    paddingTop: 20,
+  },
+  text: {
+    paddingLeft: 20,
   },
 });
 

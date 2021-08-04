@@ -5,10 +5,11 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
+    "backgroundColor": "#1C1D22",
     "splash": {
       "image": "./app/assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#1C1D22"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -20,8 +21,14 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./app/assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
+        "backgroundColor": "#1C1D22"
       }
+    },
+    "androidStatusBar": {
+      "backgroundColor": "#1C1D22AA",
+      "translucent": true,
+      "hidden": false,
+      "barStyle": "light-content"
     },
     "web": {
       "favicon": "./app/assets/favicon.png"

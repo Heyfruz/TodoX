@@ -52,16 +52,13 @@ const Profile = observer(function ({
             <MenuCard title="Add account" icon="user-plus" />
             <MenuCard title="Manage accounts" icon="users" />
           </View>
-          <View style={styles.settings}>
+          <View style={styles.cardContainer}>
             <MenuCard
               title="Settings"
               icon="settings"
               onPress={() => navigation.navigate('Settings')}
             />
           </View>
-          <View
-            style={{ alignItems: 'center', flex: 1, justifyContent: 'center' }}
-          />
         </View>
       </View>
     </Screen>
@@ -71,7 +68,7 @@ const Profile = observer(function ({
 const styles = StyleSheet.create({
   body: {
     flex: 0.88,
-    padding: 20,
+    marginTop: 20,
   },
   cardContainer: {
     marginTop: 50,
@@ -89,6 +86,7 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     flexDirection: 'row',
+    paddingHorizontal: 20,
   },
   profile: {
     alignItems: 'center',
@@ -100,9 +98,6 @@ const styles = StyleSheet.create({
   },
   profileDetails: {
     fontSize: 20,
-  },
-  settings: {
-    marginTop: 50,
   },
 });
 

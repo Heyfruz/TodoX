@@ -8,7 +8,7 @@ import {
   OnboardingNavigator,
 } from './app/navigation';
 import { assets as authenticationAssets } from './app/screen/Authentication';
-import { Provider, useStore } from './app/store/rootStore';
+import { useStore } from './app/store/rootStore';
 
 const fonts = {
   Saira: require('./app/assets/fonts/SairaCondensed-Regular.ttf'),
@@ -26,17 +26,15 @@ const App = observer(function (): JSX.Element {
   const { authStore } = useStore();
 
   return (
-    <Provider>
-      <LoadAssets {...{ assets, fonts }}>
-        {authStore.token ? (
-          <AppNavigator />
-        ) : authStore.onboarding ? (
-          <AuthNavigator />
-        ) : (
-          <OnboardingNavigator />
-        )}
-      </LoadAssets>
-    </Provider>
+    <LoadAssets {...{ assets, fonts }}>
+      {authStore.token ? (
+        <AppNavigator />
+      ) : authStore.onboarding ? (
+        <AuthNavigator />
+      ) : (
+        <OnboardingNavigator />
+      )}
+    </LoadAssets>
   );
 });
 
