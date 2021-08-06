@@ -4,7 +4,7 @@ import { ColorValue } from 'react-native';
 import { Feather as Icon } from '@expo/vector-icons';
 import { persist } from 'mobx-persist';
 
-import { Group, List, ModelProps } from '../models/index';
+import { Group, List, ModelProps, Task } from '../models/index';
 
 type DataProps = {
   icon: ComponentProps<typeof Icon>['name'];
@@ -67,5 +67,9 @@ export default class AppStore {
   }
   createGroup(title: string, color: ColorValue): void {
     this.user.push(new Group(title, color));
+  }
+
+  createTask(arr: Task[] | undefined, value: string): void {
+    arr?.push(new Task(value));
   }
 }

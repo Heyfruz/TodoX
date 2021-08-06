@@ -57,27 +57,29 @@ const Home = observer(function ({
                   icon={item.icon}
                   color={item.color}
                   onPress={() => {
-                    console.log('onPress');
+                    // console.log('onPress');
                   }}
                 />
               ))}
             </View>
             <View style={styles.userData}>
-              {userData.map(item => (
-                <Card
-                  key={item.id}
-                  title={item.title}
-                  icon={item.icon}
-                  color={item.color}
-                  onLongPress={() => {
-                    uiState.toggleLongPress();
-                  }}
-                  onPress={() => {
-                    if (item.type === 'group') return;
-                    navigation.navigate('Task', { item });
-                  }}
-                />
-              ))}
+              {userData.map(item => {
+                return (
+                  <Card
+                    key={item.id}
+                    title={item.title}
+                    icon={item.icon}
+                    color={item.color}
+                    onLongPress={() => {
+                      uiState.toggleLongPress();
+                    }}
+                    onPress={() => {
+                      if (item.type === 'group') return;
+                      navigation.navigate('Task', { item });
+                    }}
+                  />
+                );
+              })}
             </View>
           </View>
         </ScrollView>

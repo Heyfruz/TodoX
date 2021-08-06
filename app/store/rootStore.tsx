@@ -2,8 +2,7 @@ import React, { createContext, useContext, useEffect } from 'react';
 import { create } from 'mobx-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { AuthStore, DummyStore, UIState, UserStore } from './stores';
-import AppStore from './stores/Store';
+import { AppStore, AuthStore, DummyStore, UIState, UserStore } from './stores';
 
 interface ProviderProps {
   children: JSX.Element[] | JSX.Element;
@@ -19,6 +18,7 @@ export class RootStore {
   uiState = new UIState(this);
   userStore = new UserStore(this);
   appStore = new AppStore();
+  test = false;
 
   constructor() {
     hydrate('Auth', this.authStore);

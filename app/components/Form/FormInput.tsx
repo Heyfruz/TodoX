@@ -1,44 +1,40 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import {
-  ColorValue,
-  StyleSheet,
-  TextInput,
-  TextInputProps,
-  View,
-} from 'react-native';
+import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
 
-import { useStore } from '../store/rootStore';
+import { useStore } from '../../store/rootStore';
+import Text from '../Text';
 
 interface InputProps extends TextInputProps {
-  placeholder?: string;
+  placeholder: string;
   value?: string;
   onChangeText?: (text: string) => void;
   error?: boolean;
-  code: ColorValue;
 }
 
-const AppInput = observer(function ({
+const FormInput = observer(function ({
   placeholder,
   value,
   onChangeText,
-  code,
+  error = false,
   ...props
 }: InputProps): JSX.Element | null {
   const { uiState } = useStore();
   const color = uiState.getTheme();
 
   return (
-    <View style={[styles.container, { borderBottomColor: code }]}>
+    <View style={styles.container}>
+      <View>
+        <Text variant="placeholder">{placeholder}</Text>
+      </View>
       <TextInput
         style={[
           styles.input,
-          { borderBottomColor: code, color: color.textColor },
+          { backgroundColor: color.inputBG, color: color.textColor },
+          error && { borderColor: color.red, borderWidth: 1 },
         ]}
         onChangeText={onChangeText}
         value={value}
-        placeholder={placeholder}
-        placeholderTextColor="#898A8B"
         {...props}
       />
     </View>
@@ -47,15 +43,15 @@ const AppInput = observer(function ({
 
 const styles = StyleSheet.create({
   container: {
-    borderBottomWidth: 1.5,
     marginBottom: 5,
     width: '100%',
   },
   input: {
+    borderRadius: 10,
     fontFamily: 'Titillium',
-    fontSize: 16,
-    height: 45,
-    marginTop: 10,
+    fontSize: 18,
+    height: 50,
+    marginTop: 20,
     paddingLeft: 20,
   },
   placeholder: {
@@ -64,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default AppInput;
+export default FormInput;

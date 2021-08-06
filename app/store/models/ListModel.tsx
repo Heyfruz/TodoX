@@ -1,11 +1,11 @@
-import { makeAutoObservable } from 'mobx';
+// import { makeAutoObservable } from 'mobx';
 import 'react-native-get-random-values';
 import { v4 as UUID } from 'uuid';
 import { Feather as Icon } from '@expo/vector-icons';
 import { ComponentProps } from 'react';
 import { ColorValue } from 'react-native';
 
-import { Task } from './';
+import Task from './TaskModel';
 
 export default class List {
   id = UUID();
@@ -17,7 +17,6 @@ export default class List {
   type: 'list' | 'group' = 'list';
 
   constructor(title: string, color: ColorValue) {
-    makeAutoObservable(this);
     this.title = title;
     this.color = color;
   }
@@ -27,9 +26,5 @@ export default class List {
   }
   setUncompleted(): void {
     this.complete = false;
-  }
-
-  add(value: string): void {
-    this.task.push(new Task(value));
   }
 }

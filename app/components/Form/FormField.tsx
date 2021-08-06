@@ -2,9 +2,9 @@ import React from 'react';
 import { useFormikContext } from 'formik';
 import { TextInputProps } from 'react-native';
 
-import Input from '../Input';
 import { FieldKeys } from '../../config/type';
 
+import FormInput from './FormInput';
 import ErrorMessage from './ErrorMessage';
 
 interface FormFieldProps extends TextInputProps {
@@ -32,7 +32,7 @@ function FormField({
 
   return (
     <>
-      <Input
+      <FormInput
         onChangeText={text => {
           setFieldValue(name, text);
           onTextChange?.(text);

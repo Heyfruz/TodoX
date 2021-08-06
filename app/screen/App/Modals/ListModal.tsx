@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { observer } from 'mobx-react';
 
-import { AppInput, Item, Text } from '../../../components';
+import { Input, Item, Text } from '../../../components';
 import { useStore } from '../../../store/rootStore';
 import { picker } from '../../../config/Colors';
 import { usePicker } from '../../../hooks';
@@ -74,10 +74,15 @@ const ListModal = observer(function (): JSX.Element {
             <View>
               <Text variant="semibold">New List</Text>
             </View>
-            <AppInput
+            <Input
               placeholder="Create list"
-              code={colorCode}
               value={value}
+              viewStyle={{
+                borderBottomColor: colorCode,
+                borderBottomWidth: 1.5,
+                marginBottom: 5,
+              }}
+              textStyle={{ color: colorCode, marginTop: 10 }}
               onChangeText={text => setValue(text)}
               onSubmitEditing={() => {
                 handleSubmit();

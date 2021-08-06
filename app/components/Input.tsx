@@ -1,41 +1,38 @@
 import { observer } from 'mobx-react';
 import React from 'react';
-import { StyleSheet, TextInput, TextInputProps, View } from 'react-native';
-
-import { useStore } from '../store/rootStore';
-
-import Text from './Text';
+import {
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  View,
+  ViewStyle,
+} from 'react-native';
 
 interface InputProps extends TextInputProps {
   placeholder: string;
   value?: string;
   onChangeText?: (text: string) => void;
   error?: boolean;
+  viewStyle?: ViewStyle;
+  textStyle?: TextInputProps['style'];
 }
 
-const Input = observer(function ({
+const AppInput = observer(function ({
   placeholder,
   value,
   onChangeText,
-  error = false,
+  textStyle,
+  viewStyle,
   ...props
 }: InputProps): JSX.Element | null {
-  const { uiState } = useStore();
-  const color = uiState.getTheme();
-
   return (
-    <View style={styles.container}>
-      <View>
-        <Text variant="placeholder">{placeholder}</Text>
-      </View>
+    <View style={[styles.container, viewStyle]}>
       <TextInput
-        style={[
-          styles.input,
-          { backgroundColor: color.inputBG, color: color.textColor },
-          error && { borderColor: color.red, borderWidth: 1 },
-        ]}
+        style={[styles.input, textStyle]}
         onChangeText={onChangeText}
         value={value}
+        placeholder={placeholder}
+        placeholderTextColor="#898A8B"
         {...props}
       />
     </View>
@@ -44,15 +41,12 @@ const Input = observer(function ({
 
 const styles = StyleSheet.create({
   container: {
-    marginBottom: 5,
     width: '100%',
   },
   input: {
-    borderRadius: 10,
     fontFamily: 'Titillium',
-    fontSize: 18,
-    height: 50,
-    marginTop: 20,
+    fontSize: 16,
+    height: 45,
     paddingLeft: 20,
   },
   placeholder: {
@@ -61,4 +55,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Input;
+export default AppInput;

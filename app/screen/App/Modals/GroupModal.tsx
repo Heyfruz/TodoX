@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import { useStore } from '../../../store/rootStore';
-import { AppInput, Item, Text } from '../../../components';
+import { Input, Item, Text } from '../../../components';
 import { usePicker } from '../../../hooks';
 import { picker } from '../../../config/Colors';
 
@@ -74,10 +74,15 @@ const GroupModal = observer(function (): JSX.Element | null {
             <View>
               <Text variant="semibold">New Group</Text>
             </View>
-            <AppInput
+            <Input
               placeholder="Group Name"
-              code={colorCode}
               value={value}
+              viewStyle={{
+                borderBottomColor: colorCode,
+                borderBottomWidth: 1.5,
+                marginBottom: 5,
+              }}
+              textStyle={{ color: colorCode, marginTop: 10 }}
               onChangeText={text => setValue(text)}
               onSubmitEditing={() => {
                 handleSubmit();
