@@ -5,6 +5,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle,
 } from 'react-native-reanimated';
+
 import Colors from '../../../config/Colors';
 import { width } from '../../../config/Constants';
 

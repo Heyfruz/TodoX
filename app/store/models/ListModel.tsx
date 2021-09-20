@@ -11,7 +11,7 @@ export default class List {
   id = UUID();
   icon: ComponentProps<typeof Icon>['name'] = 'list';
   title = '';
-  task: Task[] = [];
+  task: Task[] = [new Task('')];
   complete = false;
   color;
   type: 'list' | 'group' = 'list';

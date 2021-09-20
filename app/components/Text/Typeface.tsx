@@ -15,7 +15,8 @@ type textProps =
   | 'placeholder'
   | 'error'
   | 'custom'
-  | 'picker';
+  | 'picker'
+  | 'headerCustom';
 
 interface TypefaceProps {
   children: React.ReactNode;
@@ -83,6 +84,13 @@ const Typeface = observer(function ({
         color: uiColor.primary,
         fontFamily: 'SairaSB',
         fontSize: 26,
+        textTransform: 'uppercase',
+      };
+      break;
+    case 'headerCustom':
+      textStyle = {
+        fontFamily: 'SairaSB',
+        fontSize: 24,
         textTransform: 'uppercase',
       };
       break;

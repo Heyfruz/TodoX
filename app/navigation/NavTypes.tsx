@@ -1,7 +1,7 @@
 import { ParamListBase, RouteProp } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
-import { ModelProps } from '../store/models';
+import { ModelProps, Task } from '../store/models';
 
 export interface StackNavigationProps<
   ParamList extends ParamListBase,
@@ -23,4 +23,5 @@ export type AppRoutes = {
   Profile: undefined;
   Settings: undefined;
   Task: { item?: ModelProps };
+  Step: Task;
 };

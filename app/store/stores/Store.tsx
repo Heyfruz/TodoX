@@ -4,7 +4,7 @@ import { ColorValue } from 'react-native';
 import { Feather as Icon } from '@expo/vector-icons';
 import { persist } from 'mobx-persist';
 
-import { Group, List, ModelProps, Task } from '../models/index';
+import { Group, List, ModelProps, Step, Task } from '../models/index';
 
 type DataProps = {
   icon: ComponentProps<typeof Icon>['name'];
@@ -69,7 +69,11 @@ export default class AppStore {
     this.user.push(new Group(title, color));
   }
 
-  createTask(arr: Task[] | undefined, value: string): void {
-    arr?.push(new Task(value));
+  createTask(arr: Task[] | undefined, value: string, color: ColorValue): void {
+    arr?.push(new Task(value, color));
+  }
+
+  createStep(arr: Step[] | undefined, value: string): void {
+    arr?.push(new Step(value));
   }
 }

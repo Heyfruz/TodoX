@@ -9,6 +9,7 @@ interface ProviderProps {
 }
 
 const hydrate = create({
+  debounce: 0,
   storage: AsyncStorage,
 });
 

@@ -2,7 +2,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 import { ComponentProps } from 'react';
 import { ColorValue } from 'react-native';
 
-import { List, Task } from '.';
+import { List, Step, Task } from '.';
 
 export default interface ModelProps {
   color: ColorValue;
@@ -12,6 +12,7 @@ export default interface ModelProps {
   type: 'list' | 'group';
   list?: List[];
   task?: Task[];
+  steps?: Step[];
   complete?: boolean;
   addList?: (title: string, color: ColorValue) => void;
   setCompleted?: () => void;

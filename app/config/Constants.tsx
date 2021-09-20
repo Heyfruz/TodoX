@@ -31,3 +31,5 @@ const dateObj = new Date();
 export const day = days[dateObj.getDay()];
 export const month = months[dateObj.getMonth()];
 export const date = dateObj.getDate();
+export const year = dateObj.getFullYear();
+export const hour = dateObj.getHours() + ':' + dateObj.getMinutes();

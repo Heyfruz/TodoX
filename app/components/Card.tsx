@@ -14,7 +14,8 @@ interface MenuCardProps {
   title: string;
   icon?: ComponentProps<typeof Icon>['name'];
   onPress?: () => void;
-  color: ColorValue;
+  color?: ColorValue;
+  component?: React.ReactNode;
   onLongPress?: () => void;
 }
 
@@ -23,6 +24,7 @@ const MenuCard = observer(function ({
   icon,
   onPress,
   onLongPress,
+  component,
   color = 'blue',
 }: MenuCardProps): JSX.Element | null {
   return (
@@ -33,9 +35,10 @@ const MenuCard = observer(function ({
       {...{ onPress }}>
       <View style={styles.container}>
         <View style={{ flexDirection: 'row' }}>
-          {icon && (
-            <Icon name={icon} size={22} style={styles.icon} color={color} />
-          )}
+          <View style={styles.icon}>
+            {component && <View>{component}</View>}
+            {icon && <Icon name={icon} size={22} color={color} />}
+          </View>
           <Text variant="custom" style={[styles.text, { color }]}>
             {title}
           </Text>

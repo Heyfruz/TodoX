@@ -14,6 +14,7 @@ import Setting from '../../screen/App/Setting';
 import Colors from '../../config/Colors';
 import { Text } from '../../components';
 import Task from '../../screen/App/Task';
+import Step from '../../screen/App/Step';
 
 const { Navigator, Screen } = createStackNavigator<AppRoutes>();
 
@@ -78,13 +79,8 @@ const AuthNavigator = function (): jsxElement {
           headerTitle: () => <Text variant="headerSB">Settings</Text>,
         })}
       />
-      <Screen
-        name="Task"
-        component={Task}
-        options={() => ({
-          headerTitle: () => <Text variant="headerSB">Settings</Text>,
-        })}
-      />
+      <Screen name="Task" component={Task} options={() => ({})} />
+      <Screen name="Step" component={Step} options={() => ({})} />
     </Navigator>
   );
 };

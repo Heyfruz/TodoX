@@ -1,29 +1,30 @@
 import React, { useEffect } from 'react';
 import { observer } from 'mobx-react';
 import {
-  ColorValue,
   FlatList,
   StyleSheet,
   TouchableNativeFeedback,
   View,
 } from 'react-native';
-import { Feather as Icon } from '@expo/vector-icons';
 import { HeaderBackButton } from '@react-navigation/stack';
+import { Feather as Icon } from '@expo/vector-icons';
 
 import { AppRoutes, StackNavigationProps } from '../../navigation';
-import { Card, Input, Text } from '../../components';
-import { useStore } from '../../store/rootStore';
+import { Input, Text } from '../../components';
+import { year } from '../../config/Constants';
 import { usePicker } from '../../hooks';
+import { useStore } from '../../store/rootStore';
 
-const Task = observer(function ({
+const Step = observer(function ({
   navigation,
   route,
-}: StackNavigationProps<AppRoutes, 'Task'>): JSX.Element | null {
-  const { item } = route.params;
+}: StackNavigationProps<AppRoutes, 'Step'>): JSX.Element | null {
   const { uiState, appStore } = useStore();
   const color = uiState.getTheme();
-  const tasks = item?.task;
-  const itemColor = item?.color as ColorValue;
+
+  const task = route.params;
+  const steps = task.steps;
+  const time = task.date;
 
   const { value, setValue } = usePicker();
 
@@ -34,12 +35,12 @@ const Task = observer(function ({
           onPress={() => {
             navigation.goBack();
           }}
-          tintColor={itemColor as string}
+          tintColor={task.color as string}
         />
       ),
       headerTitle: () => (
-        <Text variant="headerCustom" style={{ color: itemColor }}>
-          {item?.title}
+        <Text variant="headerCustom" style={{ color: task.color }}>
+          {task?.title}
         </Text>
       ),
     });
@@ -47,37 +48,47 @@ const Task = observer(function ({
 
   const handleSubmit = (): void => {
     if (value === '') return;
-    appStore.createTask(item?.task, value, itemColor);
+    appStore.createStep(steps, value);
     setValue('');
-    console.log(item?.task);
+    console.log(task);
   };
+
+  function footer(): JSX.Element {
+    return (
+      <View style={styles.listComponent}>
+        <Text variant="regular">
+          Created on {time.day?.slice(0, 3)}, {time.date} {time.month},
+          {time.year === year ? '' : ` ${time.year},`} {time.hour}
+        </Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.container}>
       <View style={styles.body}>
         <FlatList
-          data={tasks?.slice(1)}
-          keyExtractor={task => task.id}
+          data={steps.slice(1)}
+          keyExtractor={item => item.id}
           renderItem={({ item }) => {
             return (
-              <Card
-                onPress={() => {
-                  navigation.navigate('Step', item);
-                }}
-                color={itemColor}
-                title={item.title}
-                component={<Icon name="square" size={24} color={itemColor} />}
-              />
+              <View>
+                <Text variant="custom" style={{ color: task.color }}>
+                  {item.title}
+                </Text>
+              </View>
             );
           }}
+          ListFooterComponent={footer}
         />
+        <View />
       </View>
       <View style={styles.footer}>
         <View style={{ flex: 0.87 }}>
           <Input
             value={value}
             onChangeText={text => setValue(text)}
-            placeholder="Create Task"
+            placeholder="Add Step"
             textStyle={{ color: color.textColor }}
             onSubmitEditing={handleSubmit}
           />
@@ -101,12 +112,10 @@ const Task = observer(function ({
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    width: '100%',
+    padding: 20,
   },
   container: {
-    alignItems: 'center',
     flex: 1,
-    justifyContent: 'center',
   },
   footer: {
     alignItems: 'center',
@@ -115,6 +124,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
+  listComponent: {
+    paddingTop: 100,
+  },
 });
 
-export default Task;
+export default Step;
